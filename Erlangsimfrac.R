@@ -1,0 +1,65 @@
+Erlangsimfractional<-function(n,N0,S0,k,lambda,mu,nu,inttime){
+  rate<-lambda+k*mu
+  if (N0==0){
+    IntEv<-MLgen(1,nu,lambda)
+  }else{
+    IntEv<-MLgen(1,nu,rate)
+  }
+  Calendar<-vector(length=n)
+  Calendar[1]<-IntEv[1]
+  i<-2
+  N<-vector(length=1)
+  S<-vector(length=1)
+  N[1]<-N0
+  S[1]<-S0
+  j<-1
+  while(j<n+1){
+    print(j)
+    N<-c(N,0)
+    S<-c(S,0)
+    if((i-1)*inttime<Calendar[j]){
+      N[i]<-N[i-1]
+      S[i]<-S[i-1]
+    }else{
+      j<-j+1
+      if(N[i-1]==0){
+        N[i]=1
+        S[i]=k
+        IntEv
+      }else{
+        U<-runif(1)
+        prob<-lambda/rate
+        if(U<prob){
+          N[i]<-N[i-1]+1
+          S[i]<-S[i-1]
+        }else{
+          if(S[i-1]>1){
+            N[i]<-N[i-1]
+            S[i]<-S[i-1]-1
+          }else{
+            N[i]<-N[i-1]-1
+            if(N[i]==0){
+              S[i]<-0
+            }else{
+              S[i]<-k
+            }
+          }
+        }
+      }
+      if (N[i]==0){
+        IntEv<-MLgen(1,nu,lambda)
+      }else{
+        IntEv<-MLgen(1,nu,rate)
+      }
+      Calendar[j]<-Calendar[j-1]+IntEv[1]
+    }
+    i<-i+1
+  }
+  numcol<-i-1
+  M<-matrix(nrow=2,ncol=numcol)
+  for( j in c(1:numcol)){
+    M[1,j]<-N[j]
+    M[2,j]<-S[j]
+  }
+  return(M)
+}
