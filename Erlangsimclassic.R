@@ -29,7 +29,6 @@ Erlangsimclassic<-function(n,N0,S0,k,lambda,mu,inttime){
   j<-1
   #Starting the simulation
   while(j<=n){
-    print(j)
     N<-c(N,0)
     S<-c(S,0)
     if((i-1)*inttime<Calendar[j]){

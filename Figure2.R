@@ -26,9 +26,8 @@ X<-vector(length=num)
 X[1]<-0
 i<-2
 while(i<=num){
-  print(i)
   Z<-rstable(1,nu,1,gamma,0,pm=1)
-  Z<-(inttemp^(1/alpha))*Z
+  Z<-(inttime^(1/gamma))*Z
   X[i]<-X[i-1]+Z
   i<-i+1
 }

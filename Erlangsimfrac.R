@@ -33,7 +33,6 @@ Erlangsimfractional<-function(n,N0,S0,k,lambda,mu,nu,inttime){
   j<-1
   #Starting the simulation
   while(j<n+1){
-    print(j)
     N<-c(N,0)
     S<-c(S,0)
     if((i-1)*inttime<Calendar[j]){
